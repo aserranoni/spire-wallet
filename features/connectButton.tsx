@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 
 import { useWallet } from "../contexts/walletContext"
 import sendKDA from "./createTransfer"
@@ -6,6 +6,15 @@ import sendKDA from "./createTransfer"
 const ConnectButton: React.FC = () => {
   const { account, connectWallet, disconnectWallet, signTransaction } =
     useWallet()
+
+  useEffect(() => {
+    if (account) {
+      chrome.runtime.sendMessage({
+        type: "ACCOUNT_DATA",
+        account: account
+      })
+    }
+  }, [account])
 
   const [recipient, setRecipient] = useState<string>("")
   const [amount, setAmount] = useState<number | string>("")

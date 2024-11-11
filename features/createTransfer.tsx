@@ -52,7 +52,6 @@ export default async function sendKDA({
       const transactionDescriptor = await client.submit(signedTx)
       const response = await client.listen(transactionDescriptor)
       console.log(transactionDescriptor)
-      console.log(response)
       if (response.result.status === "success") {
         return response
       } else {
