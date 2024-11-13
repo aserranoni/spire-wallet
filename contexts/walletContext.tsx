@@ -1,10 +1,10 @@
-import { Pact } from "@kadena/client"
 import { connect, sign } from "@kadena/spirekey-sdk"
-import { IUnsignedCommand, PactCode } from "@kadena/types"
+import type { IUnsignedCommand } from "@kadena/types"
 import React, { createContext, useContext, useEffect, useState } from "react"
 
 interface WalletContextProps {
   account: any
+  signData: any
   connectWallet: () => Promise<void>
   disconnectWallet: () => void
   signTransaction: (IUnsignedCommand) => Promise<any>
@@ -16,7 +16,7 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({
   children
 }) => {
   const [account, setAccount] = useState<any>(null)
-
+  const [signData, setSignData] = useState<any>(null)
   // Connect function
   const connectWallet = async () => {
     try {
@@ -70,9 +70,22 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   }, [])
 
+  useEffect(() => {
+    const dataToSign = localStorage.getItem("signedData")
+    if (dataToSign) {
+      setSignData(JSON.parse(dataToSign))
+    }
+  }, [])
+
   return (
     <WalletContext.Provider
-      value={{ account, connectWallet, disconnectWallet, signTransaction }}>
+      value={{
+        account,
+        signData,
+        connectWallet,
+        disconnectWallet,
+        signTransaction
+      }}>
       {children}
     </WalletContext.Provider>
   )

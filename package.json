@@ -13,6 +13,7 @@
     "@kadena/client": "^1.15.0",
     "@kadena/spirekey-sdk": "^1.0.0",
     "@kadena/types": "^0.7.0",
+    "@plasmohq/storage": "^1.12.0",
     "plasmo": "0.89.3",
     "react": "18.2.0",
     "react-dom": "18.2.0"
