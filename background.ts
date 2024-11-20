@@ -1,3 +1,5 @@
+import signTransaction from "core/signTransaction"
+
 import { Storage } from "@plasmohq/storage"
 
 const storage = new Storage()
@@ -37,28 +39,14 @@ function handleConnectRequest(sendResponse: (response: any) => void) {
     sendResponse({ error: "Error retrieving account data" })
   }
 }
-
-function handleSignRequest(
-  message: any,
-  sendResponse: (response: any) => void
-) {
+async function handleSignRequest(message, sendResponse) {
   try {
-    setTimeout(() => {
-      storage
-        .set("signData", JSON.stringify(message.data))
-        .then(() => {
-          console.log("Data saved to storage:", message.data)
-          sendResponse({
-            type: "SIGN_RESPONSE",
-            status: "success",
-            savedData: message.data
-          })
-        })
-        .catch((error) => {
-          console.error("Error saving data to storage:", error)
-          sendResponse({ error: "Error saving data to storage" })
-        })
-    }, 1000) // Simulate async delay if necessary
+
+    sendResponse({
+      type: "TO_SIGN_RESPONSE",
+      status: "success",
+      signedData: message.data
+    })
   } catch (error) {
     console.error("Error in SIGN_REQUEST handler:", error)
     sendResponse({ error: "Error handling sign request" })

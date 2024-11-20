@@ -28,8 +28,11 @@
     "typescript": "5.3.3"
   },
   "manifest": {
-    "host_permissions": [
-      "https://*/*"
-    ]
+    "background": {
+      "service_worker": "background.ts",
+      "type": "module"
+    },
+
+    "host_permissions": ["https://*/*"]
   }
 }
