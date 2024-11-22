@@ -1,12 +1,14 @@
 import React from "react"
 
+import "./style.css"
+
 import { WalletProvider } from "./contexts/walletContext"
-import ConnectButton from "./features/connectButton"
+import MainComponent from "./features/mainComponent.tsx"
 
 const IndexPopup: React.FC = () => {
   return (
     <WalletProvider>
-      <ConnectButton />
+      <MainComponent />
     </WalletProvider>
   )
 }
